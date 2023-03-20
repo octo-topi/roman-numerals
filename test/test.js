@@ -6,7 +6,7 @@ const expect = require('chai').expect;
 // 9 ➔ IX
 // 10 ➔ X
 
-// 30 ➔ XXX
+
 // 21 ➔ XXI
 // 50 ➔ L
 // 100 ➔ C
@@ -14,15 +14,14 @@ const expect = require('chai').expect;
 // 1000 ➔ M
 
 function convertRomanNumerals(arabicNumber) {
-   if (arabicNumber === 4) {
-      return 'IV';
-   }
    let result = '';
-   for (let i = 1; i <= arabicNumber / 10; i++) {
-      result += 'X';
-   }
-   for (let i = 1; i <= arabicNumber % 10; i++) {
-      result += 'I';
+   let remainder = arabicNumber;
+   const bases = [{name: 'X', value: 10}, {name: 'IV', value: 4}, {name: 'I', value: 1}];
+   for ( const base of bases) {
+      while (remainder >= base.value) {
+         result += base.name;
+         remainder -= base.value;
+      }
    }
 
    return result;
@@ -90,6 +89,15 @@ describe('convertRomanNumerals', function () {
       const result = convertRomanNumerals(arabicNumber);
       // then
       expect(result).to.equal('XX')
+   });
+   // 22 ➔ XXII
+   it('should return XXII when given 22', () => {
+      // give
+      const arabicNumber = 22;
+      // when
+      const result = convertRomanNumerals(arabicNumber);
+      // then
+      expect(result).to.equal('XXII')
    });
 
 
