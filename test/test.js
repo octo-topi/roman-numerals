@@ -14,14 +14,14 @@ const expect = require('chai').expect;
 // 1000 ➔ M
 
 function convertRomanNumerals(arabicNumber) {
-   if (arabicNumber === 10) {
-      return 'X';
-   }
    if (arabicNumber === 4) {
       return 'IV';
    }
    let result = '';
-   for (let i = 1; i <= arabicNumber; i++) {
+   for (let i = 1; i <= arabicNumber / 10; i++) {
+      result += 'X';
+   }
+   for (let i = 1; i <= arabicNumber % 10; i++) {
       result += 'I';
    }
 
@@ -82,6 +82,15 @@ describe('convertRomanNumerals', function () {
       expect(result).to.equal('X')
    });
 
+   // 20 ➔ XX
+   it('should return XX when given 20', () => {
+      // give
+      const arabicNumber = 20;
+      // when
+      const result = convertRomanNumerals(arabicNumber);
+      // then
+      expect(result).to.equal('XX')
+   });
 
 
 });
